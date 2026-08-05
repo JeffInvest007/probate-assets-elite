@@ -639,9 +639,9 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
 <style id="living-water">
 .water-frame{position:relative;overflow:hidden;border-radius:16px;box-shadow:var(--shadow-soft);aspect-ratio:16/10.5}
 .water-frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:auto;display:block}
-.water-layer{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578439297699-eb414262c2de?q=80&w=1600&fit=max&fm=jpg') center/cover no-repeat;clip-path:inset(58% 0 0 0);filter:url(#waterRipple);animation:waterSway 7s ease-in-out infinite;will-change:transform}
+.water-layer{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578439297699-eb414262c2de?q=80&w=1600&fit=max&fm=jpg') center/cover no-repeat;clip-path:inset(84% 0 0 0);filter:url(#waterRipple);animation:waterSway 7s ease-in-out infinite;will-change:transform}
 @keyframes waterSway{0%,100%{transform:scale(1.045) translateY(0)}50%{transform:scale(1.05) translateY(-5px)}}
-.water-glint{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.14) 18%, transparent 32%, transparent 55%, rgba(255,255,255,.1) 72%, transparent 88%);background-size:220% 100%;mix-blend-mode:screen;animation:glintDrift 8s ease-in-out infinite alternate;pointer-events:none}
+.water-glint{position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.14) 18%, transparent 32%, transparent 55%, rgba(255,255,255,.1) 72%, transparent 88%);background-size:220% 100%;mix-blend-mode:screen;animation:glintDrift 8s ease-in-out infinite alternate;pointer-events:none}
 @keyframes glintDrift{from{background-position:0% 0}to{background-position:100% 0}}
 .offer-block:hover .water-frame img{transform:none}
 @media (max-width:900px){.offer-block.flip .water-frame{order:-1}}
