@@ -620,6 +620,22 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
 .offer-list-big li{font-size:15px}
 .offer-list-big{gap:10px 22px}
 </style>
+<style id="offer-stack">
+.offer-stack{display:block}
+.offer-stack .stack-head{text-align:center;margin-bottom:20px}
+.offer-stack .stack-head .path-sub{margin-bottom:8px}
+.offer-stack .stack-head h3{font-size:30px}
+.offer-stack .stack-paras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 40px;max-width:1000px;margin:0 auto 30px}
+.offer-stack .stack-paras p{margin-bottom:0}
+.offer-stack .stack-photo{width:100%;max-width:900px;aspect-ratio:16/7;object-fit:cover;margin:0 auto 30px;display:block}
+.offer-stack .stack-checks{max-width:1000px;margin:0 auto 30px;grid-auto-flow:column;grid-template-rows:repeat(5,auto)}
+.offer-stack .stack-cta{text-align:center}
+@media (max-width:700px){
+  .offer-stack .stack-paras{grid-template-columns:1fr}
+  .offer-stack .stack-checks{grid-auto-flow:row;grid-template-rows:none;grid-template-columns:1fr}
+  .offer-stack .stack-photo{aspect-ratio:16/10}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -953,14 +969,17 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
 <section class="section offer-detail" id="offer-detail">
   <div class="wrap">
     <div class="offer-blocks">
-      <article class="offer-block reveal">
-        <img src="https://images.unsplash.com/photo-1741156386380-0236c72eb6f9?q=80&w=1400&fit=max&fm=jpg" alt="A hand holding house keys in front of a home's entrance" width="520" height="340">
-        <div>
+      <article class="offer-block offer-stack reveal">
+        <div class="stack-head">
           <p class="path-sub">Path One</p>
           <h3>The Fast, Fair Cash Offer</h3>
+        </div>
+        <div class="stack-paras">
           <p>We buy inherited and probate property for our own account, at a fair value grounded in an independent appraisal. Because our funds are ready, we can often close within days of the estate being able to convey clear title.</p>
           <p>You pay no commissions and no fees to us. What you see on the closing statement is what the estate receives. And if an urgent cost arrives before closing, an advance can bridge it, credited to your proceeds at the closing table.</p>
-          <ul class="path-list offer-list offer-list-big">
+        </div>
+        <img class="stack-photo" src="https://images.unsplash.com/photo-1741156386380-0236c72eb6f9?q=80&w=1400&fit=max&fm=jpg" alt="A hand holding house keys in front of a home's entrance" width="520" height="340">
+        <ul class="path-list offer-list offer-list-big stack-checks">
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>A fair, appraisal-based offer, in writing</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sell exactly as-is, no repairs, no painting, no fixing a thing</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No cleaning and no cleanup, we handle every bit of it</li>
@@ -972,8 +991,7 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Advance funds before closing when a cost cannot wait</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Your net proceeds at closing, through a licensed title company</li>
           </ul>
-          <a class="btn btn-navy" href="#/contact">Get a Cash Offer</a>
-        </div>
+        <div class="stack-cta"><a class="btn btn-navy" href="#/contact">Get a Cash Offer</a></div>
       </article>
       <article class="offer-block flip reveal">
         <div>
