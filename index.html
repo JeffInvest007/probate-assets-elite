@@ -636,8 +636,20 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
   .offer-stack .stack-photo{aspect-ratio:16/10}
 }
 </style>
+<style id="living-water">
+.water-frame{position:relative;overflow:hidden;border-radius:16px;box-shadow:var(--shadow-soft);aspect-ratio:16/10.5}
+.water-frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:auto;display:block}
+.water-layer{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578439297699-eb414262c2de?q=80&w=1600&fit=max&fm=jpg') center/cover no-repeat;clip-path:inset(58% 0 0 0);filter:url(#waterRipple);transform:scale(1.04)}
+.water-glint{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.14) 18%, transparent 32%, transparent 55%, rgba(255,255,255,.1) 72%, transparent 88%);background-size:220% 100%;mix-blend-mode:screen;animation:glintDrift 8s ease-in-out infinite alternate;pointer-events:none}
+@keyframes glintDrift{from{background-position:0% 0}to{background-position:100% 0}}
+.offer-block:hover .water-frame img{transform:none}
+@media (max-width:900px){.offer-block.flip .water-frame{order:-1}}
+@media (prefers-reduced-motion: reduce){.water-layer{filter:none;transform:none}.water-glint{animation:none;display:none}}
+</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="waterRipple" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.011 0.045" numOctaves="2" seed="4" result="noise"><animate attributeName="baseFrequency" dur="11s" values="0.011 0.045;0.015 0.06;0.011 0.045" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
@@ -1007,7 +1019,7 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
           </ul>
           <a class="btn btn-outline-navy" href="#/contact">Talk Through Listing</a>
         </div>
-        <img src="https://images.unsplash.com/photo-1578439297699-eb414262c2de?q=80&w=1600&fit=max&fm=jpg" alt="A well kept South Florida home near the water" width="520" height="340">
+        <div class="water-frame"><img src="https://images.unsplash.com/photo-1578439297699-eb414262c2de?q=80&w=1600&fit=max&fm=jpg" alt="A well kept South Florida home near the water" width="520" height="340"><div class="water-layer" aria-hidden="true"></div><div class="water-glint" aria-hidden="true"></div></div>
       </article>
     </div>
   </div>
