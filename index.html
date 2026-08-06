@@ -441,8 +441,8 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 .call-pill{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(155deg, var(--navy-950), var(--navy-800));color:#fff;font-weight:700;font-size:16.5px;padding:13px 22px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-lift);white-space:nowrap;flex:0 0 auto;transition:transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease}
 .call-pill:hover{transform:scale(1.38);box-shadow:0 18px 44px rgba(193,154,91,.5)}
 .call-strip:has(.call-pill:hover) .call-side{opacity:0;transition:transform .55s ease, opacity .4s ease .18s}
-.call-strip:has(.call-pill:hover) .call-side:first-child{transform:translateX(250%)}
-.call-strip:has(.call-pill:hover) .call-side:last-child{transform:translateX(-250%)}
+.call-strip:has(.call-pill:hover) .call-side:has(.av-left){transform:translateX(250%)}
+.call-strip:has(.call-pill:hover) .call-side:has(.av-right){transform:translateX(-250%)}
 .call-strip:has(.call-pill:hover) .call-line{opacity:0}
 @media (max-width:640px){.call-strip{padding:20px 14px;gap:10px}.call-avatar{width:72px;height:72px}.call-pill{font-size:13.5px;padding:10px 14px;gap:6px}.call-tag{display:none}}
 @media (prefers-reduced-motion: reduce){.call-ring,.call-line{animation:none}.call-strip:has(.call-pill:hover) .call-side{opacity:1;transform:none}.call-pill:hover{transform:none}}
