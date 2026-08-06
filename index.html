@@ -471,7 +471,7 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
 
 /* ===== v2: Parallax hero ===== */
 .hero-parallax{
-  position:relative;
+  position:relative;clip-path:inset(0 0 0 0);
   background-image:
     linear-gradient(105deg, rgba(10,31,53,.95) 0%, rgba(10,31,53,.86) 38%, rgba(13,38,66,.62) 70%, rgba(13,38,66,.38) 100%),
     url('https://images.unsplash.com/photo-1761418022097-621b807bea0f?q=80&w=1800&fit=max&fm=jpg');
@@ -481,6 +481,10 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
   background-attachment:fixed, fixed;
   display:flex;flex-direction:column;min-height:88vh;
 }
+.hero-video{position:fixed;inset:0;z-index:0;pointer-events:none}
+.hero-video video{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg, rgba(10,31,53,.95) 0%, rgba(10,31,53,.86) 38%, rgba(13,38,66,.62) 70%, rgba(13,38,66,.38) 100%)}
+.hero-parallax .hero-inner2,.hero-parallax .trustbar{position:relative;z-index:2}
 .hero-inner2{
   width:100%;max-width:var(--maxw);margin:0 auto;padding:108px 24px 84px;
   flex:1;display:flex;flex-direction:column;justify-content:center;
@@ -519,7 +523,9 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
   .hero-parallax,.parallax-band{background-attachment:scroll, scroll}
   .band-water,.band-drift{position:absolute;height:38%}
   .band-glint{position:absolute;height:24%}
+  .hero-video{display:none}
 }
+@media (prefers-reduced-motion: reduce){.hero-video{display:none}}
 
 /* ===== v2: Sub-page hero ===== */
 .page-hero{
@@ -691,6 +697,7 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
 <div class="page" id="pg-home">
 <!-- HERO V2 PARALLAX -->
 <section class="hero hero-parallax" id="home">
+  <div class="hero-video" aria-hidden="true"><video autoplay muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1761418022097-621b807bea0f?q=80&w=1800&fit=max&fm=jpg"><source src="hero.mp4" type="video/mp4"></video></div>
   <div class="hero-inner2">
     <div class="hero-copy">
       <span class="eyebrow hero-eyebrow">Sell an inherited home the fair, simple way</span>
@@ -1008,7 +1015,7 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No cleaning and no cleanup, we handle every bit of it</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Take what you want, leave the rest, we clear out belongings with care</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No showings, no open houses, no strangers walking through</li>
-            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No waiting on a buyer’s bank, our funds are ready</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No waiting on a buyer’s bank, closing funds are already in place</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>You pick the closing date that fits your family</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Close in days, not months</li>
             <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F0E6D2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#B08D4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Advance funds before closing when a cost cannot wait</li>
