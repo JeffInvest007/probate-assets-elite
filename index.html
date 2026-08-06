@@ -409,7 +409,7 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 
 /* Live call strip */
 .call-strip{display:flex;align-items:center;gap:18px;max-width:840px;margin:6px auto 48px;padding:26px 30px;background:#fff;border:1px solid rgba(14,42,71,.08);border-radius:22px;box-shadow:var(--shadow-soft)}
-.call-side{display:flex;flex-direction:column;align-items:center;gap:9px;flex:0 0 auto}
+.call-side{display:flex;flex-direction:column;align-items:center;gap:9px;flex:0 0 auto;transition:transform .55s ease, opacity .4s ease;will-change:transform,opacity}
 .call-avatar{position:relative;width:104px;height:104px;border-radius:50%;padding:4px;background:linear-gradient(135deg, var(--gold-300), var(--navy-800))}
 .call-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff;display:block}
 .call-ring{position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(193,154,91,.55);animation:callPulse 2.6s ease-out infinite;pointer-events:none}
@@ -417,12 +417,16 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 .av-left img{object-position:center 20%}
 @keyframes callPulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(1.28);opacity:0}100%{transform:scale(1.28);opacity:0}}
 .call-tag{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);background:var(--sand-100);padding:4px 12px;border-radius:999px}
-.call-line{flex:1 1 auto;height:2px;min-width:18px;background-image:repeating-linear-gradient(90deg, var(--gold-500) 0 10px, transparent 10px 20px);background-size:20px 2px;animation:lineFlow 1.1s linear infinite;opacity:.85}
+.call-line{flex:1 1 auto;height:2px;min-width:18px;background-image:repeating-linear-gradient(90deg, var(--gold-500) 0 10px, transparent 10px 20px);background-size:20px 2px;animation:lineFlow 1.1s linear infinite;opacity:.85;transition:opacity .35s ease}
 @keyframes lineFlow{from{background-position:0 0}to{background-position:20px 0}}
-.call-pill{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(155deg, var(--navy-950), var(--navy-800));color:#fff;font-weight:700;font-size:16.5px;padding:13px 22px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-lift);white-space:nowrap;flex:0 0 auto;transition:transform .2s ease, box-shadow .2s ease}
-.call-pill:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 34px rgba(193,154,91,.4)}
+.call-pill{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(155deg, var(--navy-950), var(--navy-800));color:#fff;font-weight:700;font-size:16.5px;padding:13px 22px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-lift);white-space:nowrap;flex:0 0 auto;transition:transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease}
+.call-pill:hover{transform:scale(1.38);box-shadow:0 18px 44px rgba(193,154,91,.5)}
+.call-strip:has(.call-pill:hover) .call-side{opacity:0;transition:transform .55s ease, opacity .4s ease .18s}
+.call-strip:has(.call-pill:hover) .call-side:first-child{transform:translateX(250%)}
+.call-strip:has(.call-pill:hover) .call-side:last-child{transform:translateX(-250%)}
+.call-strip:has(.call-pill:hover) .call-line{opacity:0}
 @media (max-width:640px){.call-strip{padding:20px 14px;gap:10px}.call-avatar{width:72px;height:72px}.call-pill{font-size:13.5px;padding:10px 14px;gap:6px}.call-tag{display:none}}
-@media (prefers-reduced-motion: reduce){.call-ring,.call-line{animation:none}}
+@media (prefers-reduced-motion: reduce){.call-ring,.call-line{animation:none}.call-strip:has(.call-pill:hover) .call-side{opacity:1;transform:none}.call-pill:hover{transform:none}}
 
 /* Closing CTA */
 .closing{
