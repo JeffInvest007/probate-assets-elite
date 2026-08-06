@@ -393,6 +393,8 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 .form-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
 .form-field{display:flex;flex-direction:column;gap:7px}
 .form-field.full{grid-column:1 / -1}
+.form-field.heard-center{align-items:center;text-align:center}
+.form-field.heard-center select{max-width:400px}
 .form-field label{font-weight:700;font-size:14px;color:var(--navy-900);letter-spacing:.02em}
 .form-field input,.form-field select,.form-field textarea{
   font-family:var(--font-sans);font-size:16px;color:var(--ink);
@@ -425,7 +427,7 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 @media (max-width:940px){.contact-grid{grid-template-columns:1fr}.contact-card{position:static}.form-card{padding:30px 24px}.form-grid{grid-template-columns:1fr}}
 
 /* Live call strip */
-.call-strip{display:flex;align-items:center;gap:18px;max-width:840px;margin:6px auto 48px;padding:26px 30px;background:#fff;border:1px solid rgba(14,42,71,.08);border-radius:22px;box-shadow:var(--shadow-soft)}
+.call-strip{position:relative;display:flex;align-items:center;gap:18px;max-width:840px;margin:6px auto 48px;padding:26px 30px;background:#fff;border:1px solid rgba(14,42,71,.08);border-radius:22px;box-shadow:var(--shadow-soft)}
 .call-side{display:flex;flex-direction:column;align-items:center;gap:9px;flex:0 0 auto;transition:transform .55s ease, opacity .4s ease;will-change:transform,opacity}
 .call-avatar{position:relative;width:104px;height:104px;border-radius:50%;padding:4px;background:linear-gradient(135deg, var(--gold-300), var(--navy-800))}
 .call-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff;display:block}
@@ -444,6 +446,8 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 .call-strip:has(.call-pill:hover) .call-line{opacity:0}
 @media (max-width:640px){.call-strip{padding:20px 14px;gap:10px}.call-avatar{width:72px;height:72px}.call-pill{font-size:13.5px;padding:10px 14px;gap:6px}.call-tag{display:none}}
 @media (prefers-reduced-motion: reduce){.call-ring,.call-line{animation:none}.call-strip:has(.call-pill:hover) .call-side{opacity:1;transform:none}.call-pill:hover{transform:none}}
+.confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:5}
+.confetti-bit{position:absolute;left:0;top:0;width:8px;height:12px;border-radius:2px;will-change:transform,opacity}
 
 /* Closing CTA */
 .closing{
@@ -1296,7 +1300,11 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
               <option>Not sure yet, help me decide</option>
             </select>
           </div>
-          <div class="form-field">
+          <div class="form-field full">
+            <label for="f-msg">Anything you would like us to know</label>
+            <textarea id="f-msg" name="message" placeholder="The situation, the property, the timing. Whatever feels helpful."></textarea>
+          </div>
+          <div class="form-field full heard-center">
             <label for="f-heard">How did you hear about us?</label>
             <select id="f-heard" name="heard">
               <option value="">Please choose</option>
@@ -1308,10 +1316,6 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
               <option>Social media</option>
               <option>Somewhere else</option>
             </select>
-          </div>
-          <div class="form-field full">
-            <label for="f-msg">Anything you would like us to know</label>
-            <textarea id="f-msg" name="message" placeholder="The situation, the property, the timing. Whatever feels helpful."></textarea>
           </div>
         </div>
         <button class="btn btn-navy" type="submit">
@@ -1486,6 +1490,55 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
       el.addEventListener('blur',mark);
       if(el.tagName==='SELECT'){el.addEventListener('change',mark);}
     });
+  }
+
+  /* Confetti pops from the phone number the moment Our Team and You come together */
+  var pill=document.querySelector('.call-pill');
+  var strip=document.querySelector('.call-strip');
+  var noMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(pill&&strip&&!noMotion){
+    var layer=document.createElement('div');
+    layer.className='confetti-layer';
+    layer.setAttribute('aria-hidden','true');
+    strip.appendChild(layer);
+    var confColors=['#C19A5B','#DCC391','#B08D4F','#0E2A47','#F3E7D3','#FFFFFF'];
+    var meetTimer=null;
+    function confettiBurst(){
+      var sr=strip.getBoundingClientRect();
+      var pr=pill.getBoundingClientRect();
+      var cx=pr.left-sr.left+pr.width/2;
+      var cy=pr.top-sr.top+pr.height/2;
+      var bits=[];
+      for(var i=0;i<30;i++){
+        var b=document.createElement('span');
+        b.className='confetti-bit';
+        b.style.background=confColors[i%confColors.length];
+        if(i%3===0){b.style.borderRadius='50%';b.style.width='7px';b.style.height='7px';}
+        b.style.transform='translate('+cx+'px,'+cy+'px)';
+        var ang=(-Math.PI/2)+(Math.random()-.5)*Math.PI*1.5;
+        var spd=4.5+Math.random()*5.5;
+        bits.push({el:b,x:cx,y:cy,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd-2,rot:Math.random()*360,vr:(Math.random()-.5)*24,life:0,ttl:70+Math.random()*30});
+        layer.appendChild(b);
+      }
+      function step(){
+        var alive=false;
+        for(var j=0;j<bits.length;j++){
+          var p=bits[j];
+          if(p.life>=p.ttl){if(p.el.parentNode){p.el.parentNode.removeChild(p.el);}continue;}
+          alive=true;
+          p.life++;p.vy+=0.22;p.vx*=0.988;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
+          p.el.style.opacity=p.life>p.ttl-18?(p.ttl-p.life)/18:1;
+          p.el.style.transform='translate('+p.x+'px,'+p.y+'px) rotate('+p.rot+'deg)';
+        }
+        if(alive){requestAnimationFrame(step);}
+      }
+      requestAnimationFrame(step);
+    }
+    pill.addEventListener('mouseenter',function(){
+      clearTimeout(meetTimer);
+      meetTimer=setTimeout(confettiBurst,450);
+    });
+    pill.addEventListener('mouseleave',function(){clearTimeout(meetTimer);});
   }
 })();
 </script>
