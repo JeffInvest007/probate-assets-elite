@@ -405,6 +405,18 @@ h1,h2,h3{font-family:var(--font-serif);color:var(--navy-900);line-height:1.15;fo
 .form-field textarea{min-height:120px;resize:vertical}
 .form-note{font-size:13.5px;color:var(--ink-soft);margin-top:16px}
 .form-card .btn{margin-top:22px}
+.form-error{display:none;background:rgba(193,80,80,.08);border:1px solid rgba(193,80,80,.25);border-radius:12px;padding:12px 16px;color:#8F3B3B;font-size:14.5px;margin-top:16px}
+.form-error a{color:#8F3B3B;font-weight:700}
+.thanks-card{display:none;background:#fff;border:1px solid rgba(193,154,91,.35);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:52px 44px;text-align:center}
+.thanks-card.show{display:block;animation:thanksRise .7s cubic-bezier(.22,1,.36,1)}
+@keyframes thanksRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.thanks-check{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:var(--gold-100);margin-bottom:20px;animation:thanksPop .6s cubic-bezier(.34,1.56,.64,1) .15s backwards}
+@keyframes thanksPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.thanks-card h3{font-size:26px;margin-bottom:14px}
+.thanks-card p{color:var(--ink-soft);font-size:16.5px;line-height:1.7;max-width:520px;margin:0 auto 14px}
+.thanks-card .btn{margin:10px auto 6px}
+.thanks-sub{font-size:13.5px;color:var(--ink-soft)}
+@media (prefers-reduced-motion: reduce){.thanks-card.show,.thanks-check{animation:none}}
 @media (max-width:940px){.contact-grid{grid-template-columns:1fr}.contact-card{position:static}.form-card{padding:30px 24px}.form-grid{grid-template-columns:1fr}}
 
 /* Live call strip */
@@ -1277,8 +1289,18 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
           Send to Our Team
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+        <p class="form-error" id="formError">Something did not go through on our end. Please try again in a moment, or call us right now at <a href="tel:+17869207419">(786) 920-7419</a>. We answer kindly.</p>
         <p class="form-note">Submitting this form does not create any obligation, and nothing on this site is legal advice.</p>
+        <input type="checkbox" name="botcheck" class="hp-field" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
       </form>
+      <div class="thanks-card" id="thanksCard" role="status" aria-live="polite">
+        <span class="thanks-check" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#B08D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>Thank you. Your message is in caring hands.</h3>
+        <p>We know reaching out about a family home is not a small step, and we do not treat it like one. A real person from our team will read every word you shared and call you back within one business day. There will be no pressure and no rush, just a calm conversation about your options, at your pace.</p>
+        <p>If you would rather talk sooner, we are one call away.</p>
+        <a class="btn btn-gold" href="tel:+17869207419">(786) 920-7419</a>
+        <p class="thanks-sub">We answer kindly.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1404,18 +1426,29 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
   if(form){
     form.addEventListener('submit',function(e){
       e.preventDefault();
-      function v(id){var el=document.getElementById(id);return el&&el.value?el.value.trim():'';}
-      var body='New property inquiry from the website%0D%0A%0D%0A'
-        +'Name: '+encodeURIComponent(v('f-name'))+'%0D%0A'
-        +'Phone: '+encodeURIComponent(v('f-phone'))+'%0D%0A'
-        +'Email: '+encodeURIComponent(v('f-email'))+'%0D%0A'
-        +'Property address or city: '+encodeURIComponent(v('f-address'))+'%0D%0A'
-        +'Role or relationship: '+encodeURIComponent(v('f-role'))+'%0D%0A'
-        +'Leaning toward: '+encodeURIComponent(v('f-path'))+'%0D%0A%0D%0A'
-        +'Message:%0D%0A'+encodeURIComponent(v('f-msg'));
-      window.location.href='mailto:info@probateassetselite.net?subject='
-        +encodeURIComponent('Property inquiry: '+(v('f-address')||'inherited home'))
-        +'&body='+body;
+      if(!form.reportValidity()){return;}
+      var btn=form.querySelector('button[type="submit"]');
+      var old=btn.innerHTML;
+      btn.disabled=true;btn.textContent='Sending with care...';
+      var err=document.getElementById('formError');
+      if(err){err.style.display='none';}
+      var fd=new FormData(form);
+      fd.append('access_key','acc9b271-7b61-4b74-b93f-f99c9680f30c');
+      fd.append('subject','New lead from probateassetselite.com: '+((fd.get('address')||'').toString().trim()||'inherited home'));
+      fd.append('from_name','Probate Assets Elite Website');
+      fetch('https://api.web3forms.com/submit',{method:'POST',body:fd})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d&&d.success){
+            var card=document.getElementById('thanksCard');
+            form.style.display='none';
+            if(card){card.classList.add('show');card.scrollIntoView({block:'center',behavior:'smooth'});}
+          }else{throw new Error('send failed');}
+        })
+        .catch(function(){
+          btn.disabled=false;btn.innerHTML=old;
+          if(err){err.style.display='block';}
+        });
     });
   }
 })();
