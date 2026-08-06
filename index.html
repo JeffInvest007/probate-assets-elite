@@ -1273,12 +1273,12 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
             <input id="f-phone" name="phone" type="tel" autocomplete="tel" required>
           </div>
           <div class="form-field">
-            <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email">
+            <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
           </div>
           <div class="form-field">
-            <label for="f-address">Property address and city</label>
-            <input id="f-address" name="address" type="text">
+            <label for="f-address">Property address and city <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-address" name="address" type="text" required>
           </div>
           <div class="form-field">
             <label for="f-role">Your role or relationship to the estate</label>
@@ -1305,8 +1305,8 @@ img.brand-mark{width:42px;height:auto;flex:0 0 auto}
             <textarea id="f-msg" name="message" placeholder="The situation, the property, the timing. Whatever feels helpful."></textarea>
           </div>
           <div class="form-field full heard-center">
-            <label for="f-heard">How did you hear about us?</label>
-            <select id="f-heard" name="heard">
+            <label for="f-heard">How did you hear about us? <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-heard" name="heard" required>
               <option value="">Please choose</option>
               <option>Google or another search</option>
               <option>A letter or card we sent</option>
